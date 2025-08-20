@@ -42,10 +42,7 @@ export default {
   mounted() {
     // Redirect if already logged in as admin
     if (localStorage.getItem("isAdmin") === "true") {
-      // Ensure the route exists before redirecting
-      if (this.$router.hasRoute && this.$router.hasRoute("AdminDashboard")) {
-        this.$router.push({ name: "AdminDashboard" });
-      }
+      this.$router.push({ name: "AdminDashboard" });
     }
   },
   methods: {
@@ -61,10 +58,12 @@ export default {
         });
 
         if (response.data.success) {
+          // Store token and admin data
           localStorage.setItem("isAdmin", "true");
           localStorage.setItem("adminData", JSON.stringify(response.data.admin));
+          localStorage.setItem("adminToken", response.data.token);
 
-          // Redirect to dashboard using router name
+          // Redirect to dashboard
           this.$router.push({ name: "AdminDashboard" });
         } else {
           alert("❌ " + response.data.message);
@@ -72,7 +71,7 @@ export default {
         }
       } catch (error) {
         console.error(error);
-        alert("❌ Login failed. Please check your credentials or server.");
+        alert("❌ Login failed. Check your credentials or server.");
         this.password = '';
       } finally {
         this.loading = false;

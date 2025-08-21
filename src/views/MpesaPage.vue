@@ -16,7 +16,14 @@
               </v-list-item-subtitle>
             </v-list-item>
           </v-list>
-          <v-alert v-else type="warning" class="mt-4" border="start" elevation="2">
+
+          <v-alert
+            v-else
+            type="warning"
+            class="mt-4"
+            border="start"
+            elevation="2"
+          >
             Your cart is empty. Add items to proceed.
           </v-alert>
 
@@ -36,7 +43,8 @@
             color="green"
             class="mt-4"
             block
-            :disabled="totalPrice <= 0"
+            :loading="loading"
+            :disabled="totalPrice <= 0 || loading"
             @click="submitPayment"
           >
             Pay Now
@@ -59,72 +67,99 @@
 </template>
 
 <script>
-import { useCartStore } from "@/stores/cart"
-import { computed, ref } from "vue"
-import axios from "axios"
+import { useCartStore } from "@/stores/cart";
+import { computed, ref } from "vue";
+import axios from "axios";
+import { useRouter } from "vue-router";
 
 export default {
   name: "MpesaPage",
   setup() {
-    const cart = useCartStore()
-    cart.loadCart()
+    const cart = useCartStore();
+    cart.loadCart(); // load cart from localStorage
 
-    const phone = ref("")
-    const message = ref("")
-    const messageType = ref("success")
+    const router = useRouter();
+    const phone = ref("");
+    const message = ref("");
+    const messageType = ref("success");
+    const loading = ref(false);
 
-    const totalPrice = computed(() => {
-      if (!cart.items || cart.items.length === 0) return 0
-      return cart.items.reduce((sum, item) => sum + (item.price * item.quantity || 0), 0)
-    })
+    const totalPrice = computed(() =>
+      cart.items && cart.items.length > 0
+        ? cart.items.reduce((sum, item) => sum + item.price * item.quantity, 0)
+        : 0
+    );
 
     const phoneRule = (value) => {
-      const pattern = /^2547\d{8}$/
-      return pattern.test(value) || "Enter a valid M-Pesa number starting with 2547 (e.g., 254712345678)"
-    }
+      const pattern = /^2547\d{8}$/;
+      return (
+        pattern.test(value) ||
+        "Enter a valid M-Pesa number starting with 2547 (e.g., 254712345678)"
+      );
+    };
 
     const submitPayment = async () => {
-      console.log("submitPayment triggered", { phone: phone.value, amount: totalPrice.value }) // Debug log
       if (phoneRule(phone.value) !== true) {
-        messageType.value = "error"
-        message.value = "❌ Please enter a valid phone number."
-        return
+        messageType.value = "error";
+        message.value = "❌ Please enter a valid phone number.";
+        return;
       }
 
       if (totalPrice.value <= 0) {
-        messageType.value = "error"
-        message.value = "❌ Cart is empty or total price is invalid."
-        return
+        messageType.value = "error";
+        message.value = "❌ Cart is empty or total price is invalid.";
+        return;
       }
+
+      loading.value = true;
+      message.value = "";
 
       try {
-        console.log("Sending request to", "http://127.0.0.1:8000/api/mpesa/stkpush") // Debug log
-        const response = await axios.post("http://127.0.0.1:8000/api/mpesa/stkpush", {
-          phone: phone.value,
-          amount: totalPrice.value
-        }, {
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        })
+        // Trigger M-Pesa STK Push
+        const stkResponse = await axios.post(
+          "http://127.0.0.1:8000/api/mpesa/stkpush",
+          { phone: phone.value, amount: totalPrice.value }
+        );
 
-        console.log("Response received:", response.data) // Debug log
-        if (response.status === 200 && response.data.ResponseCode === "0") {
-          messageType.value = "success"
-          message.value = "✅ Payment request sent! Check your phone to enter PIN."
-        } else if (response.data.error) {
-          messageType.value = "error"
-          message.value = `❌ ${response.data.error}${response.data.details ? ': ' + response.data.details : ''}.`
+        if (stkResponse.status === 200 && stkResponse.data.ResponseCode === "0") {
+          // Payment request sent successfully
+          messageType.value = "success";
+          message.value =
+            "✅ Payment request sent! Check your phone to complete the transaction.";
+
+          // Save cart items to pass to Success page
+          const savedItems = [...cart.items];
+
+          // Clear cart
+          cart.clearCart();
+
+          // Redirect to Success page
+          router.push({
+            name: "SuccessPage",
+            query: {
+              phone: phone.value,
+              amount: totalPrice.value,
+              items: JSON.stringify(savedItems)
+            }
+          });
         } else {
-          messageType.value = "error"
-          message.value = `❌ Payment request failed: ${response.data.ResponseDescription || 'Unknown error'}.`
+          messageType.value = "error";
+          message.value = `❌ Payment request failed: ${
+            stkResponse.data.ResponseDescription || "Unknown error"
+          }`;
         }
       } catch (err) {
-        console.error("Error details:", err.response?.data || err) // Debug log
-        messageType.value = "error"
-        message.value = `❌ Payment request failed: ${err.response?.data?.error || err.message}. Check backend logs.`
+        console.error("Error details:", err.response?.data || err);
+        messageType.value = "error";
+        message.value = `❌ Payment failed: ${
+          err.response?.data?.errors
+            ? JSON.stringify(err.response.data.errors)
+            : err.message
+        }`;
+      } finally {
+        loading.value = false;
       }
-    }
+    };
 
     return {
       cart,
@@ -133,8 +168,9 @@ export default {
       messageType,
       phoneRule,
       submitPayment,
-      totalPrice
-    }
-  }
-}
+      totalPrice,
+      loading,
+    };
+  },
+};
 </script>

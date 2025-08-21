@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-//  Import MpesaPage
+//  Import MpesaPage + SuccessPage
 import MpesaPage from '@/views/MpesaPage.vue'
+import SuccessPage from '@/views/SuccessPage.vue'
 
 //  Import Admin pages
 import AdminLogin from '@/views/admin/AdminLogin.vue'
@@ -44,6 +45,13 @@ const routes = [
     path: '/mpesa',
     name: 'MpesaPage',
     component: MpesaPage
+  },
+
+  // ✅ Success Page (after payment)
+  {
+    path: '/success',
+    name: 'SuccessPage',
+    component: SuccessPage
   },
 
   // ✅ User routes

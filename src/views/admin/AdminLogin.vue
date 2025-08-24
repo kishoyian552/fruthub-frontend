@@ -66,12 +66,12 @@ export default {
           // Redirect to dashboard
           this.$router.push({ name: "AdminDashboard" });
         } else {
-          alert("❌ " + response.data.message);
+          alert("Login failed: " + response.data.message);
           this.password = '';
         }
       } catch (error) {
         console.error(error);
-        alert("❌ Login failed. Check your credentials or server.");
+        alert(" Login failed. Check your credentials or server.");
         this.password = '';
       } finally {
         this.loading = false;

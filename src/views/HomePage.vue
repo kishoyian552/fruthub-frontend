@@ -101,7 +101,7 @@
           <v-card
             class="pa-6 text-center glass-card"
             elevation="4"
-            :class="`animate__animated animate__fadeIn animate__delay-${index + 2}s`"
+            :class="`animate__animated animate__fadeIn animate__delay-${index + 1}s`"
           >
             <v-icon size="48" class="mb-4 fruit-bounce" :color="advantage.color">{{ advantage.icon }}</v-icon>
             <h3 class="text-h6 font-weight-bold mb-2">{{ advantage.title }}</h3>
@@ -127,12 +127,12 @@ function goToExplore() {
 // Carousel Items with Fruit Images
 const carouselItems = ref([
   {
-    src: 'https://images.pexels.com/photos/1132047/pexels-photo-1132047.jpeg',
+    src: 'https://media.istockphoto.com/id/2207060329/photo/mango-juice-splash-with-fresh-mango-pieces.jpg?s=612x612&w=0&k=20&c=QlzkfIEBqVKiGjljn9v2tr8rc8cd82qDUCs_W_Pl05Q=',
     title: 'Juicy Mangoes',
     description: 'Savor the sweetness of our farm-fresh mangoes.'
   },
   {
-    src: 'https://images.pexels.com/photos/708777/pexels-photo-708777.jpeg',
+    src: 'https://media.istockphoto.com/id/944064364/vector/fruit-burst-splash-of-juice-sweet-tropical-fruits-and-mixed-berries-mango-banana-pineapple.jpg?s=612x612&w=0&k=20&c=RDwnFc_wca_q4r0FLSO_wE6aDn4f1F5NTpV6CeHdGV8=',
     title: 'Crisp Apples',
     description: 'Hand-picked apples bursting with flavor.'
   },

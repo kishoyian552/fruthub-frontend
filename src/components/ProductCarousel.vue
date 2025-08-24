@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <v-carousel
     height="400"
     cycle
@@ -78,4 +78,4 @@ const carouselItems = ref([
 .fruit-carousel :deep(.v-carousel__controls) {
   background: rgba(0, 0, 0, 0.2);
 }
-</style>
+</style> -->

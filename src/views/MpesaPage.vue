@@ -101,13 +101,13 @@ export default {
     const submitPayment = async () => {
       if (phoneRule(phone.value) !== true) {
         messageType.value = "error";
-        message.value = "❌ Please enter a valid phone number.";
+        message.value = " Please enter a valid phone number.";
         return;
       }
 
       if (totalPrice.value <= 0) {
         messageType.value = "error";
-        message.value = "❌ Cart is empty or total price is invalid.";
+        message.value = " Cart is empty or total price is invalid.";
         return;
       }
 
@@ -125,7 +125,7 @@ export default {
           // Payment request sent successfully
           messageType.value = "success";
           message.value =
-            "✅ Payment request sent! Check your phone to complete the transaction.";
+            " Payment request sent! Check your phone to complete the transaction.";
 
           // Save cart items to pass to Success page
           const savedItems = [...cart.items];
@@ -144,14 +144,14 @@ export default {
           });
         } else {
           messageType.value = "error";
-          message.value = `❌ Payment request failed: ${
+          message.value = ` Payment request failed: ${
             stkResponse.data.ResponseDescription || "Unknown error"
           }`;
         }
       } catch (err) {
         console.error("Error details:", err.response?.data || err);
         messageType.value = "error";
-        message.value = `❌ Payment failed: ${
+        message.value = ` Payment failed: ${
           err.response?.data?.errors
             ? JSON.stringify(err.response.data.errors)
             : err.message

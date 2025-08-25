@@ -32,8 +32,8 @@
             <v-img :src="product.image" height="200" cover class="mb-3" />
             <v-card-title>{{ product.name }}</v-card-title>
             <v-card-subtitle>KES {{ product.price }}</v-card-subtitle>
-            <v-chip :color="product.inStock ? 'success' : 'error'" small>
-              {{ product.inStock ? 'In Stock' : 'Out of Stock' }}
+            <v-chip :color="product.inStock ? 'success' : 'success'" small>
+              {{ product.inStock ? 'In Stock' : 'In stock' }}
             </v-chip>
           </v-card>
         </v-hover>

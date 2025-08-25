@@ -41,7 +41,7 @@
 
       <!-- Proceed Button -->
       <div class="text-right mt-4">
-        <v-btn color="green" @click="proceedToCheckout">
+        <v-btn color="green" @click="placeOrder">
           Proceed to Checkout
         </v-btn>
       </div>
@@ -51,33 +51,63 @@
 
 <script>
 import { useCartStore } from '@/stores/cart'
-import { computed, onMounted } from 'vue'
+import { computed } from 'vue'
 import { useRouter } from 'vue-router'
+import axios from 'axios'
 
 export default {
   setup() {
     const cart = useCartStore()
     const router = useRouter()
 
-    // Load cart from localStorage on mount
-    onMounted(() => {
-      cart.loadCart()
-    })
-
     // Total calculation
     const cartTotal = computed(() =>
       cart.items.reduce((sum, item) => sum + item.price * item.quantity, 0)
     )
 
-    // Navigate to Mpesa page
-    const proceedToCheckout = () => {
-      router.push('/mpesa')
+    const placeOrder = async () => {
+      try {
+        const token = localStorage.getItem('authToken')
+        const user = JSON.parse(localStorage.getItem('user') || '{}')
+
+        if (!token || !user.id) {
+          alert('Please login first!')
+          router.push('/login')
+          return
+        }
+
+        await axios.post(
+          'http://127.0.0.1:8000/api/orders',
+          {
+            user_id: user.id,
+            items: cart.items.map(item => ({
+              product_id: item.id,
+              quantity: item.quantity,
+              price: item.price,
+              total: item.price * item.quantity
+            })),
+            amount: cartTotal.value,
+            status: 'pending'
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }
+        )
+
+        // ✅ cart.clearCart() removed, so items stay in cart
+        router.push('/mpesa')
+      } catch (error) {
+        console.error('Error placing order:', error.response?.data || error.message)
+        alert(error.response?.data?.message || 'Failed to place order')
+      }
     }
 
     return {
       cart,
       cartTotal,
-      proceedToCheckout
+      placeOrder
     }
   }
 }

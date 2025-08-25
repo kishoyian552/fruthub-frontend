@@ -39,10 +39,22 @@ export default {
   methods: {
     async fetchCounts() {
       try {
+        // ✅ Get admin token
+        const token = localStorage.getItem("adminToken");
+
+        if (!token) {
+          alert("You must be logged in as admin!");
+          this.$router.push({ name: "AdminLogin" });
+          return;
+        }
+
+        // ✅ Set headers for all requests
+        const headers = { Authorization: `Bearer ${token}` };
+
         const [productsRes, ordersRes, usersRes] = await Promise.all([
-          axios.get("http://127.0.0.1:8000/api/products"),
-          axios.get("http://127.0.0.1:8000/api/orders"),
-          axios.get("http://127.0.0.1:8000/api/users"),
+          axios.get("http://127.0.0.1:8000/api/products", { headers }),
+          axios.get("http://127.0.0.1:8000/api/orders", { headers }),
+          axios.get("http://127.0.0.1:8000/api/users", { headers }),
         ]);
 
         this.productCount = productsRes.data.length;
@@ -50,6 +62,7 @@ export default {
         this.userCount = usersRes.data.length;
       } catch (err) {
         console.error("Error fetching counts:", err.response?.data || err);
+        alert("Failed to fetch admin dashboard data");
       }
     },
   },

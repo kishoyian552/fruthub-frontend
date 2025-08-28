@@ -45,7 +45,7 @@ export default {
       this.loading = true;
 
       try {
-        const token = localStorage.getItem("adminToken"); 
+        const token = localStorage.getItem("adminToken"); // admin orders
         if (!token) {
           alert("Please login as admin first!");
           this.$router.push("/admin/login");

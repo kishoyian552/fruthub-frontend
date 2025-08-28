@@ -326,7 +326,7 @@
 <script setup>
 import { ref, reactive, computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { checkoutApi } from '@/services/api'
+// import { checkoutApi } from '@/services/api'
 
 const router = useRouter()
 
@@ -495,7 +495,8 @@ const processCheckout = async () => {
       paymentMethod: paymentMethod.value
     }
 
-    const response = await checkoutApi.processCheckout(checkoutData)
+    // const response = await checkoutApi.processCheckout(checkoutData)
+    const reponse ={};
     
     // Generate a mock order number for demo
     orderNumber.value = `FH${Date.now().toString().slice(-6)}`

@@ -137,7 +137,7 @@
       <v-row class="align-center">
         <v-col cols="12" md="6">
           <p class="text-body-2 mb-0">
-            © {{ currentYear }} FruitHub. All rights reserved.
+            © {{ currentYear }} FruitHub. All Rights Reserved.
           </p>
         </v-col>
         <v-col cols="12" md="6" class="text-md-right">

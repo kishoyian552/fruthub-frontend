@@ -96,7 +96,7 @@ export default {
           }
         )
 
-        // ✅ cart.clearCart() removed, so items stay in cart
+      
         router.push('/mpesa')
       } catch (error) {
         console.error('Error placing order:', error.response?.data || error.message)

@@ -56,7 +56,7 @@ const fetchProducts = async () => {
   isLoading.value = true
   error.value = null
   try {
-    const response = await axios.get('http://localhost:8000/api/products') // your backend endpoint
+    const response = await axios.get('http://localhost:8000/api/products') // backend endpoint
     products.value = response.data
   } catch (err) {
     console.error(err)

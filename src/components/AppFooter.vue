@@ -81,7 +81,6 @@
               Contact
             </a>
 
-            <!-- 🔒 Admin Link forces login -->
             <a
               href="#"
               @click.prevent="goToAdminLogin"

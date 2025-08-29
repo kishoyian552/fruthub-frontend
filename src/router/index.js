@@ -4,7 +4,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import MpesaPage from '@/views/MpesaPage.vue'
 import SuccessPage from '@/views/SuccessPage.vue'
 
-//  Import Admin pages
+
 import AdminLogin from '@/views/admin/AdminLogin.vue'
 import AdminLayout from '@/views/admin/AdminLayout.vue'
 import AdminDashboard from '@/views/admin/AdminDashboard.vue'
@@ -40,21 +40,21 @@ const routes = [
     component: () => import('@/views/CheckoutPage.vue')
   },
 
-  // ✅ Mpesa route
+  
   {
     path: '/mpesa',
     name: 'MpesaPage',
     component: MpesaPage
   },
 
-  // ✅ Success Page (after payment)
+  
   {
     path: '/success',
     name: 'SuccessPage',
     component: SuccessPage
   },
 
-  // ✅ User routes
+
   {
     path: '/login',
     name: 'Login',
@@ -66,7 +66,7 @@ const routes = [
     component: () => import('@/views/RegisterPage.vue')
   },
 
-  // ✅ Admin routes
+ 
   {
     path: '/admin/login',
     name: 'AdminLogin',
@@ -74,7 +74,7 @@ const routes = [
   },
   {
     path: '/admin',
-    component: AdminLayout,  // <-- Layout with sidebar + navbar
+    component: AdminLayout,
     meta: { requiresAdmin: true },
     children: [
       {
@@ -106,7 +106,7 @@ const router = createRouter({
   routes
 })
 
-// 🔒 Admin route guard
+
 router.beforeEach((to, from, next) => {
   if (to.meta.requiresAdmin) {
     const isAdmin = localStorage.getItem('isAdmin') === 'true'

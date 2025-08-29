@@ -33,7 +33,7 @@ export const useCartStore = defineStore('cart', () => {
     saveCart()
   }
 
-  // 👉 Add this computed value
+  
   const totalPrice = computed(() => {
     return items.value.reduce((sum, item) => sum + item.price * item.quantity, 0)
   })
@@ -45,6 +45,6 @@ export const useCartStore = defineStore('cart', () => {
     clearCart,
     loadCart,
     saveCart,
-    totalPrice   // ✅ expose it
+    totalPrice   // t
   }
 })

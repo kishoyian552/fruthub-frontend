@@ -12,7 +12,7 @@ app.use(pinia)
 app.use(vuetify)
 app.use(router)
 
-// ✅ Make sure auth data is loaded before app mount
+
 const authStore = useAuthStore(pinia)
 authStore.loadUser()
 

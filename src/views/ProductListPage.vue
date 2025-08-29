@@ -43,34 +43,34 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
-import axios from 'axios'
+import { ref, onMounted } from 'vue'// Vue Composition API
+import { useRouter } from 'vue-router'// For navigation
+import axios from 'axios'// Axios for HTTP requests
 
 const router = useRouter()
-const products = ref([])
-const isLoading = ref(true)
-const error = ref(null)
+const products = ref([])// Holds the list of products fetched from the backend
+const isLoading = ref(true)// Indicates if products are being loaded
+const error = ref(null)// Holds any error message during fetching
 
 const fetchProducts = async () => {
-  isLoading.value = true
-  error.value = null
+  isLoading.value = true// Start loading
+  error.value = null// Clear previous errors
   try {
-    const response = await axios.get('http://localhost:8000/api/products') // backend endpoint
-    products.value = response.data
+    const response = await axios.get('http://localhost:8000/api/products') // your backend endpoint
+    products.value = response.data// Set fetched products
   } catch (err) {
-    console.error(err)
-    error.value = 'Failed to load products from server.'
+    console.error(err)// Log error for debugging
+    error.value = 'Failed to load products from server.'// Set error message
   } finally {
     isLoading.value = false
-  }
+  }// Stop loading
 }
 
 const goToDetail = (id) => {
-  router.push({ name: 'ProductDetails', params: { id } })
+  router.push({ name: 'ProductDetails', params: { id } })// Navigate to product detail page
 }
 
 onMounted(() => {
   fetchProducts()
-})
+})// Fetch products when component is mounted
 </script>

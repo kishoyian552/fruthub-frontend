@@ -69,39 +69,39 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
-import { useRouter } from 'vue-router'
-import { useAuthStore } from '@/stores/auth'
+import { ref, reactive } from 'vue'// Vue Composition API
+import { useRouter } from 'vue-router'//useRouter: For navigation after login.
+import { useAuthStore } from '@/stores/auth'//useAuthStore: Pinia store for authentication.
 
-const router = useRouter()
-const authStore = useAuthStore()
+const router = useRouter()// For navigation
+const authStore = useAuthStore()// Access the auth store
 
-const loginForm = ref(null)
-const showPassword = ref(false)
+const loginForm = ref(null)//// Reference to the login form
+const showPassword = ref(false)// Toggle password visibility
 
 const credentials = reactive({
-  email: '',
-  password: ''
-})
+  email: '',// User's email input
+  password: ''// User's password input
+})/// Reactive object to hold login credentials
 
 const emailRules = [
   v => !!v || 'Email is required',
   v => /.+@.+\..+/.test(v) || 'Email must be valid'
-]
+]// Validation rules for email input
 
 const passwordRules = [
   v => !!v || 'Password is required',
   v => v.length >= 6 || 'Password must be at least 6 characters'
-]
+]// Validation rules for password input
 
 const handleLogin = async () => {
-  const { valid } = await loginForm.value.validate()
+  const { valid } = await loginForm.value.validate()// Validate the form
 
   if (valid) {
-    const success = await authStore.login(credentials)
+    const success = await authStore.login(credentials)// Attempt to log in
     if (success) {
-      router.push('/')
+      router.push('/')//Navigate to home page on successful login
     }
-  }
-}
+  }// Only proceed if form is valid
+}// Handle form submission and login process
 </script>

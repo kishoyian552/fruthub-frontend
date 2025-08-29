@@ -50,34 +50,34 @@
 </template>
 
 <script>
-import { useCartStore } from '@/stores/cart'
-import { computed } from 'vue'
-import { useRouter } from 'vue-router'
-import axios from 'axios'
+import { useCartStore } from '@/stores/cart'//useCartStore'
+import { computed } from 'vue'// Vue Composition API
+import { useRouter } from 'vue-router'// For navigation
+import axios from 'axios'// Axios for HTTP requests
 
 export default {
   setup() {
-    const cart = useCartStore()
-    const router = useRouter()
+    const cart = useCartStore()//useCartStore: To access cart state and actions
+    const router = useRouter()// For navigation
 
     // Total calculation
     const cartTotal = computed(() =>
-      cart.items.reduce((sum, item) => sum + item.price * item.quantity, 0)
-    )
+      cart.items.reduce((sum, item) => sum + item.price * item.quantity, 0)// Calculate total price of items in cart
+    )//
 
     const placeOrder = async () => {
       try {
-        const token = localStorage.getItem('authToken')
-        const user = JSON.parse(localStorage.getItem('user') || '{}')
+        const token = localStorage.getItem('authToken')// Get auth token from localStorage
+        const user = JSON.parse(localStorage.getItem('user') || '{}')// Get user info from localStorage
 
         if (!token || !user.id) {
-          alert('Please login first!')
+          alert('Please login first!')// Alert if user is not logged in
           router.push('/login')
           return
         }
 
         await axios.post(
-          'http://127.0.0.1:8000/api/orders',
+          'http://127.0.0.1:8000/api/orders',// Backend endpoint to create order
           {
             user_id: user.id,
             items: cart.items.map(item => ({
@@ -85,30 +85,30 @@ export default {
               quantity: item.quantity,
               price: item.price,
               total: item.price * item.quantity
-            })),
+            })),// Prepare order items
             amount: cartTotal.value,
             status: 'pending'
           },
           {
             headers: {
               Authorization: `Bearer ${token}`
-            }
+            }// Authorization header with Bearer token
           }
-        )
+        )//Create order in backend
 
       
-        router.push('/mpesa')
+        router.push('/mpesa')// Navigate to M-Pesa payment page
       } catch (error) {
-        console.error('Error placing order:', error.response?.data || error.message)
+        console.error('Error placing order:', error.response?.data || error.message)// Log error for debugging
         alert(error.response?.data?.message || 'Failed to place order')
-      }
+      }// Handle errors appropriately
     }
 
     return {
       cart,
       cartTotal,
       placeOrder
-    }
+    }// Return reactive properties and methods to the template
   }
-}
+}// Export the component
 </script>

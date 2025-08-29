@@ -84,31 +84,31 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import { useCartStore } from '@/stores/cart'
+import { ref, computed } from 'vue'// Vue Composition API
+import { useCartStore } from '@/stores/cart'//useCartStore: To access cart state and actions
 
-const drawer = ref(false)
-const cartStore = useCartStore()
+const drawer = ref(false)// Drawer state
+const cartStore = useCartStore()//useCartStore: To access cart state and actions
 
 // Compute total quantity from cart store
 const cartItemCount = computed(() =>
   cartStore.items.reduce((sum, item) => sum + item.quantity, 0)
-)
+)// Total items in cart
 </script>
 
 <style scoped>
 .v-toolbar-title {
   cursor: pointer;
-}
+}/* Pointer cursor on title */
 .v-btn--variant-outlined {
   border: 1px solid currentColor;
-}
+}/* Outlined button border */
 .v-navigation-drawer .v-list-item {
   padding: 8px 16px;
-}
+}/* Drawer list item padding */
 .v-badge .v-badge__badge {
   font-size: 12px;
   min-width: 18px;
   height: 18px;
-}
+}/* Badge size */
 </style>

@@ -114,14 +114,14 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref } from 'vue'// Vue Composition API
+import { useRouter } from 'vue-router'//// For navigation
 import AppHeader from '@/components/AppHeader.vue'
 
-const router = useRouter()
+const router = useRouter()// Vue Router instance
 
 function goToExplore() {
-  router.push({ name: 'Explore' })
+  router.push({ name: 'Explore' })//Navigate to Explore page (not implemented yet)
 }
 
 // Carousel Items with Fruit Images
@@ -145,25 +145,25 @@ const carouselItems = ref([
 
 // Services Section
 const services = [
-  { title: 'Fresh Delivery', description: 'Same-day delivery of farm-fresh fruits', icon: 'mdi-truck-fast', color: '#a5d6a7' },
-  { title: 'Organic Certified', description: '100% organic fruits from trusted farms', icon: 'mdi-leaf', color: '#81c784' },
-  { title: 'Gift Baskets', description: 'Custom fruit baskets for any occasion', icon: 'mdi-gift', color: '#66bb6a' },
-  { title: 'Customer Care', description: '24/7 support for your fruit orders', icon: 'mdi-headset', color: '#4caf50' },
+  { title: 'Fresh Delivery', description: 'Same-day delivery of farm-fresh fruits', icon: 'mdi-truck-fast', color: '#a5d6a7' },// Light green
+  { title: 'Organic Certified', description: '100% organic fruits from trusted farms', icon: 'mdi-leaf', color: '#81c784' },// Medium green
+  { title: 'Gift Baskets', description: 'Custom fruit baskets for any occasion', icon: 'mdi-gift', color: '#66bb6a' },// Darker green
+  { title: 'Customer Care', description: '24/7 support for your fruit orders', icon: 'mdi-headset', color: '#4caf50' },// Dark green
 ]
 
 // Advantages Section
 const advantages = [
-  { title: 'Premium Quality', description: 'Hand-selected fruits for maximum freshness', icon: 'mdi-star', color: '#81c784' },
+  { title: 'Premium Quality', description: 'Hand-selected fruits for maximum freshness', icon: 'mdi-star', color: '#a5d6a7' },
   { title: 'Eco-Friendly', description: 'Sustainable packaging and farming practices', icon: 'mdi-earth', color: '#a5d6a7' },
-  { title: 'Fast Delivery', description: 'Get your fruits delivered fresh and fast', icon: 'mdi-truck', color: '#4caf50' },
-]
+  { title: 'Fast Delivery', description: 'Get your fruits delivered fresh and fast', icon: 'mdi-truck', color: '#a5d6a7' },
+]// Light green
 </script>
 
 <style scoped>
 .hero-section {
-  background: linear-gradient(45deg, #2e7d32, #66bb6a);
-  background-size: 200% 200%;
-  animation: gradientAnimation 15s ease infinite;
+  background: linear-gradient(45deg, '#EE9003FF', #66bb6a);/* Green gradient */
+  background-size: 200% 200%;/* Larger background for animation */
+  animation: gradientAnimation 1s ease infinite;/* Faster animation for a more dynamic effect */
 }
 
 @keyframes gradientAnimation {
@@ -174,35 +174,35 @@ const advantages = [
 
 .glass-card {
   background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(200px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: #ffffff;
-}
+}/* Glassmorphism card style */
 
 .parallax-section {
   position: relative;
   overflow: hidden;
-}
+}/* Parallax effect container */
 
 /* Custom Fruit Bounce Animation */
 .fruit-bounce {
   display: inline-block;
   animation: fruitBounce 2s ease infinite;
-}
+}/* Apply bounce animation to fruit icons */
 
 @keyframes fruitBounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
+  0%, 100% { transform: translateY(0); }/* Start and end at original position */
+  50% { transform: translateY(-10px); }/* Move up by 10px at the midpoint */
+}/* Smooth up-and-down bounce effect */
 
 .text-center {
   text-align: center;
-}
+}/* Center text alignment */
 
 .font-weight-bold {
   font-weight: bold;
-}
+}/* Bold font weight */
 
-/* Ensure animate.css is included */
-@import 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css';
+/*  animate.css  included */
+@import 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css';/* Import animate.css for animations */
 </style>

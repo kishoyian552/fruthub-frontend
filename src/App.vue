@@ -9,14 +9,14 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
-import AppHeader from '@/components/AppHeader.vue'
-import AppFooter from '@/components/AppFooter.vue'
-import { useCartStore } from '@/stores/cart'
+import { onMounted } from 'vue'//Vue Composition API
+import AppHeader from '@/components/AppHeader.vue'// Header component
+import AppFooter from '@/components/AppFooter.vue'// Footer component
+import { useCartStore } from '@/stores/cart'//useCartStore: To access cart state and actions
 
-const cartStore = useCartStore()
+const cartStore = useCartStore()//useCartStore: To access cart state and actions
 
 onMounted(async () => {
-  await cartStore.loadCart()
-})
+  await cartStore.loadCart()//load cart from localStorage
+})// Load cart when app mounts
 </script>

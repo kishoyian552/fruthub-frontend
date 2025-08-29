@@ -1,9 +1,9 @@
 import '@mdi/font/css/materialdesignicons.css'
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
-import * as components from 'vuetify/components'
-import * as directives from 'vuetify/directives'
-import { aliases, mdi } from 'vuetify/iconsets/mdi'
+import * as components from 'vuetify/components'/////
+import * as directives from 'vuetify/directives'// Import Vuetify components and directives
+import { aliases, mdi } from 'vuetify/iconsets/mdi'// Import mdi icon set
 
 const customTheme = {
   dark: false,
@@ -17,8 +17,8 @@ const customTheme = {
     success: '#4CAF50',
     surface: '#FFFFFF',
     background: '#F8F9FA',
-  }
-}
+  }//  colors
+}// Theme
 
 export default createVuetify({
   components,
@@ -28,12 +28,12 @@ export default createVuetify({
     aliases,
     sets: {
       mdi,
-    },
-  },
+    },// sets
+  },// Icon configuration
   theme: {
     defaultTheme: 'customTheme',
     themes: {
       customTheme,
-    },
-  },
-})
+    },//  themes
+  },// Theme configuration
+})// Export Vuetify instance

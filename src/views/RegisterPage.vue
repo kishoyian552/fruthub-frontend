@@ -113,35 +113,35 @@
 </template>
 
 <script setup>
-import { ref, reactive, computed } from 'vue'
-import { useRouter } from 'vue-router'
-import { useAuthStore } from '@/stores/auth'
+import { ref, reactive, computed } from 'vue'// Vue Composition API
+import { useRouter } from 'vue-router'// For navigation
+import { useAuthStore } from '@/stores/auth'// Pinia store for authentication
 
-const router = useRouter()
-const authStore = useAuthStore()
+const router = useRouter()// For navigation
+const authStore = useAuthStore()// Access auth store
 
-const registerForm = ref()
-const showPassword = ref(false)
-const showConfirmPassword = ref(false)
+const registerForm = ref()// Reference to the form
+const showPassword = ref(false)// Toggle password visibility
+const showConfirmPassword = ref(false)// Toggle confirm password visibility
 
 const formData = reactive({
-  email: '',
-  password: '',
-  confirmPassword: '',
-  firstName: '',
-  lastName: '',
-  phone: ''
-})
+  email: '',// User's email input
+  password: '',// User's password input
+  confirmPassword: '',// User's confirm password input
+  firstName: '',// User's first name input
+  lastName: '',// User's last name input
+  phone: ''// User's phone input (optional)
+})// Form data model
 
 const nameRules = [
   v => !!v || 'Name is required',
   v => v.length >= 2 || 'Name must be at least 2 characters'
-]
+]// Validation rules for name fields
 
 const emailRules = [
   v => !!v || 'Email is required',
   v => /.+@.+\..+/.test(v) || 'Email must be valid'
-]
+]// Validation rules for email field
 
 const passwordRules = [
   v => !!v || 'Password is required',
@@ -149,20 +149,20 @@ const passwordRules = [
   v => /(?=.*[a-z])/.test(v) || 'Must contain lowercase letter',
   v => /(?=.*[A-Z])/.test(v) || 'Must contain uppercase letter',
   v => /(?=.*\d)/.test(v) || 'Must contain a number'
-]
+]// Validation rules for password field
 
 const confirmPasswordRules = computed(() => [
   v => !!v || 'Confirm password is required',
   v => v === formData.password || 'Passwords do not match'
-])
+])// Validation rules for confirm password field
 
 const handleRegister = async () => {
-  const { valid } = await registerForm.value.validate()
+  const { valid } = await registerForm.value.validate()// Validate form
   if (valid) {
-    const success = await authStore.register(formData)
+    const success = await authStore.register(formData)// Call register action in auth store
     if (success) {
-      router.push('/')
-    }
-  }
-}
+      router.push('/')// Redirect to home on successful registration
+    }// If registration fails, error is handled in the store
+  }// Only proceed if form is valid
+}// Handle form submission
 </script>

@@ -32,57 +32,57 @@
 </template>
 
 <script>
-import { useRoute, useRouter } from "vue-router";
-import axios from "axios";
+import { useRoute, useRouter } from "vue-router";// For route and navigation
+import axios from "axios";/// Axios for HTTP requests
 
 export default {
   setup() {
-    const route = useRoute();
-    const router = useRouter();
+    const route = useRoute();//
+    const router = useRouter();// Router for navigation
 
-    const phone = route.query.phone || "";
-    const amount = route.query.amount || 0;
-    let items = [];
+    const phone = route.query.phone || "";// Phone number from query
+    const amount = route.query.amount || 0;// Amount from query
+    let items = [];// Items array
 
     try {
       items = JSON.parse(route.query.items || "[]");
     } catch (e) {
-      console.error("Error parsing items", e);
+      console.error("Error parsing items", e);// Log parsing error
     }
 
     // Send each item as a separate order to the database
     const saveOrders = async () => {
       try {
-        await axios.get("/sanctum/csrf-cookie");
+        await axios.get("/sanctum/csrf-cookie");// Get csrf cookie for Laravel Sanctum
         for (const item of items) {
           const response = await axios.post(
-            "/api/orders",
+            "/api/orders",// Backend endpoint to create order(not active for now) creates an error
             {
               product_id: item.id,
               amount: item.price * item.quantity,
-              mpesa_receipt: route.query.mpesa_receipt || `MPESA_${Date.now()}`,
-            },
+              mpesa_receipt: route.query.mpesa_receipt || `MPESA_${Date.now()}`,// Use provided receipt or generate a dummy one
+            },// Order data
             {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
-              },
-            }
-          );
+              },// Authorization header with Bearer token
+            }// Axios config
+          );// Create order in backend (not active for now)
           console.log(`Order ${response.data.order.id} saved successfully`);
-        }
+        }// Loop through items
       } catch (error) {
         console.error("Error saving orders:", error.response?.data || error.message);
-      }
-    };
+      }// Log error for debugging
+    };// Save orders function
 
     // Call saveOrders when component mounts
-    saveOrders();
+    saveOrders();// Save orders on mount
 
     const goHome = () => {
-      router.push("/");
-    };
+      router.push("/");// Navigate to home page
+    };// Go home function
 
     return { phone, amount, items, goHome };
-  },
-};
+  },// End of setup
+};// Export component
 </script>

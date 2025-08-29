@@ -3,15 +3,15 @@
     <!-- Loading State -->
     <div v-if="isLoading" class="text-center">
       <v-progress-circular indeterminate color="primary" size="64" />
-      <p class="mt-4">Loading product details...</p>
+      <p class="mt-4">Loading product details...</p> 
     </div>
 
     <!-- Error State -->
     <v-alert v-else-if="error" type="error" variant="outlined" prominent class="mb-6">
-      {{ error }}
+      {{ error }}// Display error message if product fails to load
       <template v-slot:append>
         <v-btn color="error" variant="outlined" size="small" @click="loadProduct">
-          Retry
+          Retry 
         </v-btn>
       </template>
     </v-alert>
@@ -120,29 +120,29 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
-import { useCartStore } from '@/stores/cart'
-import axios from 'axios'
+import { ref, computed, onMounted } from 'vue'// Vue Composition API
+import { useRoute } from 'vue-router'// To access route parameters
+import { useCartStore } from '@/stores/cart'// Cart store for managing cart state
+import axios from 'axios'// Axios for HTTP requests
 
-const route = useRoute()
-const cartStore = useCartStore()
+const route = useRoute()// To access route parameters
+const cartStore = useCartStore()// Cart store for managing cart state
 
-const product = ref(null)
-const isLoading = ref(true)
-const error = ref(null)
-const selectedQuantity = ref(1)
-const isAddingToCart = ref(false)
-const showSuccessMessage = ref(false)
+const product = ref(null)// Product details
+const isLoading = ref(true)// Loading state
+const error = ref(null)// Error message state
+const selectedQuantity = ref(1)// Default quantity
+const isAddingToCart = ref(false)// Indicates if the add to cart action is in progress
+const showSuccessMessage = ref(false)// Show success message after adding to cart
 
 const breadcrumbs = computed(() => [
   { title: 'Home', to: '/' },
   { title: 'Products', to: '/products' },
-  { title: product.value?.name || 'Product', disabled: true }
-])
+  { title: product.value?.name || 'Product', disabled: true }// Current product name or "Product" if not loaded
+])// Breadcrumb navigation items
 
 const increaseQuantity = () => { if (selectedQuantity.value < 10) selectedQuantity.value++ }
-const decreaseQuantity = () => { if (selectedQuantity.value > 1) selectedQuantity.value-- }
+const decreaseQuantity = () => { if (selectedQuantity.value > 1) selectedQuantity.value-- }// Limit quantity between 1 and 10
 
 const addToCart = async () => {
   if (!product.value) return
@@ -158,14 +158,14 @@ const addToCart = async () => {
   } finally {
     isAddingToCart.value = false
   }
-}
+}// Add product to cart with selected quantity
 
 const loadProduct = async () => {
   isLoading.value = true
   error.value = null
   try {
     const productId = route.params.id
-    const response = await axios.get(`http://localhost:8000/api/products/${productId}`)
+    const response = await axios.get(`http://localhost:8000/api/products/${productId}`)// Fetch product details from backend
     product.value = response.data
   } catch (err) {
     console.error(err)
@@ -173,12 +173,12 @@ const loadProduct = async () => {
     product.value = null
   } finally {
     isLoading.value = false
-  }
-}
+  }// Stop loading
+}// Load product on component mount
 
 onMounted(() => {
   loadProduct()
-})
+})// Fetch product when component is mounted
 </script>
 
 <style scoped>

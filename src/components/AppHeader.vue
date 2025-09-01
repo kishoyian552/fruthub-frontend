@@ -84,7 +84,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'// Vue Composition API
+import { ref, computed } from 'vue'// /Vue Composition API
 import { useCartStore } from '@/stores/cart'//useCartStore: To access cart state and actions
 
 const drawer = ref(false)// Drawer state

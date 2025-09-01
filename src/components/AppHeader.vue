@@ -92,7 +92,7 @@ const cartStore = useCartStore()//useCartStore: To access cart state and actions
 
 // Compute total quantity from cart store
 const cartItemCount = computed(() =>
-  cartStore.items.reduce((sum, item) => sum + item.quantity, 0)
+  cartStore.items.reduce((sum, item) => sum + item.quantity, 0)//
 )// Total items in cart
 </script>
 

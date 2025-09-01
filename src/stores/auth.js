@@ -59,7 +59,7 @@ export const useAuthStore = defineStore('auth', () => {
       return false// Registration failed
     } finally {
       isLoading.value = false
-    } // End of trycatchfinally
+    } // End of trycatch
   }// End of register
 
   const logout = () => {

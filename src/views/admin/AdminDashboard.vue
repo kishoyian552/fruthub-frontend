@@ -31,43 +31,45 @@ export default {
   name: "AdminDashboard",
   data() {
     return {
-      productCount: 0,
-      orderCount: 0,
-      userCount: 0,
+      productCount: 0,//
+      orderCount: 0,// Set counts
+      userCount: 0,//
     };
   },
   methods: {
+   // Fetch counts
     async fetchCounts() {
       try {
-        // ✅ Get admin token
-        const token = localStorage.getItem("adminToken");
+        // Get admin token
+        const token = localStorage.getItem("adminToken");// admin
 
         if (!token) {
-          alert("You must be logged in as admin!");
-          this.$router.push({ name: "AdminLogin" });
+          alert("You must be logged in as admin!");// alert
+          this.$router.push({ name: "AdminLogin" });// navigate
           return;
         }
 
-        // ✅ Set headers for all requests
+        //  Set headers for all requests
         const headers = { Authorization: `Bearer ${token}` };
 
         const [productsRes, ordersRes, usersRes] = await Promise.all([
-          axios.get("http://127.0.0.1:8000/api/products", { headers }),
-          axios.get("http://127.0.0.1:8000/api/orders", { headers }),
-          axios.get("http://127.0.0.1:8000/api/users", { headers }),
+          axios.get("http://127.0.0.1:8000/api/products", { headers }),//GET PRODUCTS
+          axios.get("http://127.0.0.1:8000/api/orders", { headers }),//GET ORDERS
+          axios.get("http://127.0.0.1:8000/api/users", { headers }),//GET USERS
         ]);
 
-        this.productCount = productsRes.data.length;
-        this.orderCount = ordersRes.data.length;
-        this.userCount = usersRes.data.length;
+        this.productCount = productsRes.data.length;// Set counts
+        this.orderCount = ordersRes.data.length;// Set counts
+        this.userCount = usersRes.data.length;// Set counts
       } catch (err) {
-        console.error("Error fetching counts:", err.response?.data || err);
-        alert("Failed to fetch admin dashboard data");
+        console.error("Error fetching counts:", err.response?.data || err);// error
+        alert("Failed to fetch admin dashboard data");// alert
       }
     },
   },
+
   mounted() {
     this.fetchCounts();
-  },
+  },//Fetch counts of products, orders, and users when the component is mounted
 };
 </script>

@@ -62,10 +62,10 @@ export default {
   name: "AdminProducts",
   data() {
     return {
-      loading: false,
-      dialog: false,
+      loading: false,//Indicates whether the table is loading.
+      dialog: false,//Indicates whether the dialog is open
       headers: [
-        { text: "ID", value: "id" },
+        { text: "ID", value: "id" },//table headers
         { text: "Name", value: "name" },
         { text: "Price", value: "price" },
         { text: "Category", value: "category" },
@@ -73,8 +73,8 @@ export default {
         { text: "Rating", value: "rating" },
         { text: "Reviews", value: "reviews" },
         { text: "Actions", value: "actions", sortable: false },
-      ],
-      products: [],
+      ],// headers
+      products: [],// products
       form: {
         id: null,
         name: "",
@@ -85,21 +85,21 @@ export default {
         inStock: true,
         rating: null,
         reviews: null,
-      },
-    };
+      },// form
+    };// return
   },
   methods: {
     async fetchProducts() {
       this.loading = true;
       try {
-        const res = await axios.get("http://127.0.0.1:8000/api/products");
-        this.products = res.data;
+        const res = await axios.get("http://127.0.0.1:8000/api/products");// get
+        this.products = res.data;// products
       } catch (err) {
-        console.error("Error fetching products:", err.response?.data || err);
+        console.error("Error fetching products:", err.response?.data || err);// error
       } finally {
-        this.loading = false;
+        this.loading = false;// loading
       }
-    },
+    },// fetchProducts
 
     openDialog(product = null) {
       this.form = product
@@ -113,7 +113,7 @@ export default {
             inStock: !!product.inStock,
             rating: product.rating !== null ? Number(product.rating) : null,
             reviews: product.reviews !== null ? Number(product.reviews) : null,
-          }
+          }// form
         : {
             id: null,
             name: "",
@@ -124,13 +124,13 @@ export default {
             inStock: true,
             rating: null,
             reviews: null,
-          };
+          };// form
       this.dialog = true;
-    },
+    },// openDialog
 
     closeDialog() {
       this.dialog = false;
-    },
+    },// closeDialog
 
     async saveProduct() {
       try {
@@ -148,33 +148,33 @@ export default {
 
         if (this.form.id) {
           // Update product
-          await axios.put(`http://127.0.0.1:8000/api/products/${this.form.id}`, payload);
+          await axios.put(`http://127.0.0.1:8000/api/products/${this.form.id}`, payload);// put
         } else {
           // Create product
-          await axios.post("http://127.0.0.1:8000/api/products", payload);
+          await axios.post("http://127.0.0.1:8000/api/products", payload);// post
         }
 
-        await this.fetchProducts();
-        this.closeDialog();
+        await this.fetchProducts();// Fetch updated products
+        this.closeDialog();// Close dialog
       } catch (err) {
-        console.error("Error saving product:", err.response?.data || err);
-        alert("Failed to save product. Make sure fields are valid and try again.");
-      }
+        console.error("Error saving product:", err.response?.data || err);// error
+        alert("Failed to save product. Make sure fields are valid and try again.");// alert
+      }// error
     },
 
     async deleteProduct(id) {
-      if (!confirm("Are you sure you want to delete this product?")) return;
+      if (!confirm("Are you sure you want to delete this product?")) return;// confirm
       try {
-        await axios.delete(`http://127.0.0.1:8000/api/products/${id}`);
-        await this.fetchProducts();
+        await axios.delete(`http://127.0.0.1:8000/api/products/${id}`);// delete
+        await this.fetchProducts();// Fetch updated products
       } catch (err) {
-        console.error("Error deleting product:", err.response?.data || err);
-        alert("Failed to delete product. Check console for errors.");
+        console.error("Error deleting product:", err.response?.data || err);// error
+        alert("Failed to delete product. Check console for errors.");// alert
       }
-    },
+    },// deleteProduct
   },
   mounted() {
-    this.fetchProducts();
+    this.fetchProducts();// Fetch products
   },
-};
+};// export
 </script>

@@ -37,7 +37,7 @@ import axios from "axios";/// Axios for HTTP requests
 
 export default {
   setup() {
-    const route = useRoute();//
+    const route = useRoute();// Route for accessing 
     const router = useRouter();// Router for navigation
 
     const phone = route.query.phone || "";// Phone number from query
@@ -45,10 +45,10 @@ export default {
     let items = [];// Items array
 
     try {
-      items = JSON.parse(route.query.items || "[]");
+      items = JSON.parse(route.query.items || "[]");// Parse items from query
     } catch (e) {
       console.error("Error parsing items", e);// Log parsing error
-    }
+    }// Try to parse items
 
     // Send each item as a separate order to the database
     const saveOrders = async () => {

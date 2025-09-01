@@ -3,7 +3,7 @@
     <!-- Top Bar -->
     <v-app-bar app color="green darken-2" dark>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>🍏 Fruithub Admin</v-toolbar-title>
+      <v-toolbar-title> Fruithub Admin</v-toolbar-title>
     </v-app-bar>
 
     <!-- Sidebar -->
@@ -45,7 +45,7 @@ export default {
         { title: "Orders", icon: "mdi-cart", to: "/admin/orders" },
         { title: "Logout", icon: "mdi-logout", to: "/admin/login" },
       ],
-    };
+    };// return
   },
   methods: {
     handleItemClick(item) {
@@ -58,7 +58,7 @@ export default {
         this.$router.push(item.to);
       }
     }
-  }
+  }// methods
 };
 </script>
 

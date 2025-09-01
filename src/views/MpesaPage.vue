@@ -102,22 +102,22 @@ export default {
       if (phoneRule(phone.value) !== true) {
         messageType.value = "error";
         message.value = " Please enter a valid phone number.";
-        return;
+        return;// If phone number is invalid
       }// Validate phone number format
 
       if (totalPrice.value <= 0) {
         messageType.value = "error";
-        message.value = " Cart is empty or total price is invalid.";
+        message.value = " Cart is empty or total price is invalid.";// If cart is empty or total price is invalid
         return;
       }// Ensure cart is not empty
 
-      loading.value = true;
-      message.value = "";
+      loading.value = true;// Start loading
+      message.value = "";// Clear previous messages
 
       try {
         // Trigger M-Pesa STK Push
         const stkResponse = await axios.post(
-          "http://127.0.0.1:8000/api/mpesa/stkpush",
+          "http://127.0.0.1:8000/api/mpesa/stkpush",// backend endpoint
           { phone: phone.value, amount: totalPrice.value }// Send phone and amount to backend
         );//
 
@@ -146,7 +146,7 @@ export default {
           messageType.value = "error";
           message.value = ` Payment request failed: ${
             stkResponse.data.ResponseDescription || "Unknown error"
-          }`;
+          }`;// Set error message
         }// Handle non-successful response from M-Pesa API
       } catch (err) {
         console.error("Error details:", err.response?.data || err);// Log full error details for debugging

@@ -136,41 +136,41 @@ const isAddingToCart = ref(false)// Indicates if the add to cart action is in pr
 const showSuccessMessage = ref(false)// Show success message after adding to cart
 
 const breadcrumbs = computed(() => [
-  { title: 'Home', to: '/' },
-  { title: 'Products', to: '/products' },
+  { title: 'Home', to: '/' },//  navigation
+  { title: 'Products', to: '/products' },//  navigation
   { title: product.value?.name || 'Product', disabled: true }// Current product name or "Product" if not loaded
 ])// Breadcrumb navigation items
 
-const increaseQuantity = () => { if (selectedQuantity.value < 10) selectedQuantity.value++ }
+const increaseQuantity = () => { if (selectedQuantity.value < 10) selectedQuantity.value++ }// Limit quantity between 1 and 10
 const decreaseQuantity = () => { if (selectedQuantity.value > 1) selectedQuantity.value-- }// Limit quantity between 1 and 10
 
 const addToCart = async () => {
-  if (!product.value) return
-  isAddingToCart.value = true
-  showSuccessMessage.value = false
+  if (!product.value) return// Return if product is not loaded
+  isAddingToCart.value = true// Start loading
+  showSuccessMessage.value = false// Hide success message
   try {
     cartStore.addToCart({
       ...product.value,
       quantity: selectedQuantity.value
-    })
-    showSuccessMessage.value = true
-    setTimeout(() => showSuccessMessage.value = false, 3000)
+    })// Add product to cart
+    showSuccessMessage.value = true// Show success message
+    setTimeout(() => showSuccessMessage.value = false, 3000)// Hide success message after 3 seconds
   } finally {
-    isAddingToCart.value = false
+    isAddingToCart.value = false// Stop loading
   }
 }// Add product to cart with selected quantity
 
 const loadProduct = async () => {
-  isLoading.value = true
-  error.value = null
+  isLoading.value = true// Start loading
+  error.value = null// Clear previous errors
   try {
     const productId = route.params.id
     const response = await axios.get(`http://localhost:8000/api/products/${productId}`)// Fetch product details from backend
     product.value = response.data
   } catch (err) {
-    console.error(err)
-    error.value = 'Product not found or failed to load.'
-    product.value = null
+    console.error(err)// Log error for debugging
+    error.value = 'Product not found or failed to load.'// Set error message
+    product.value = null// Reset product
   } finally {
     isLoading.value = false
   }// Stop loading

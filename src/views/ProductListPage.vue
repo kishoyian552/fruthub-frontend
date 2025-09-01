@@ -68,7 +68,7 @@ const fetchProducts = async () => {
 
 const goToDetail = (id) => {
   router.push({ name: 'ProductDetails', params: { id } })// Navigate to product detail page
-}
+}// Navigate to product detail page
 
 onMounted(() => {
   fetchProducts()

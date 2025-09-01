@@ -34,9 +34,9 @@ export default {
   name: "AdminLogin",
   data() {
     return {
-      email: "",
-      password: "",
-      loading: false
+      email: "",//email
+      password: "",// password
+      loading: false// loading
     };
   },
   mounted() {
@@ -47,34 +47,34 @@ export default {
   },
   methods: {
     async login() {
-      if (!this.email || !this.password) return;
+      if (!this.email || !this.password) return;// check
 
-      this.loading = true;
+      this.loading = true;// loading
 
       try {
         const response = await axios.post("http://localhost:8000/api/admin/login", {
-          email: this.email.trim(),
-          password: this.password.trim()
-        });
+          email: this.email.trim(),// email trim
+          password: this.password.trim()// password trim
+        });// post
 
         if (response.data.success) {
           // Store token and admin data
-          localStorage.setItem("isAdmin", "true");
-          localStorage.setItem("adminData", JSON.stringify(response.data.admin));
-          localStorage.setItem("adminToken", response.data.token);
+          localStorage.setItem("isAdmin", "true");// admin
+          localStorage.setItem("adminData", JSON.stringify(response.data.admin));// admin
+          localStorage.setItem("adminToken", response.data.token);// token
 
           // Redirect to dashboard
-          this.$router.push({ name: "AdminDashboard" });
+          this.$router.push({ name: "AdminDashboard" });// navigate
         } else {
-          alert("Login failed: " + response.data.message);
-          this.password = '';
+          alert("Login failed: " + response.data.message);// alert
+          this.password = '';// password
         }
       } catch (error) {
         console.error(error);
-        alert(" Login failed. Check your credentials or server.");
+        alert(" Login failed. Check your credentials or server.");// alert
         this.password = '';
       } finally {
-        this.loading = false;
+        this.loading = false;// loading
       }
     }
   }

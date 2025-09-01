@@ -28,14 +28,14 @@ export default {
   data() {
     return {
       headers: [
-        { text: "Order ID", value: "id" },
+        { text: "Order ID", value: "id" },//table headers
         { text: "Customer", value: "customer" },
         { text: "Total", value: "total" },
         { text: "Status", value: "status" },
       ],
       orders: [],
       loading: false,
-    };
+    };// return
   },
   mounted() {
     this.fetchOrders();
@@ -53,15 +53,15 @@ export default {
         }
 
         const response = await axios.get("http://127.0.0.1:8000/api/orders", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+          headers: { Authorization: `Bearer ${token}` },// get
+        });// get
 
-        this.orders = response.data; // set real orders
+        this.orders = response.data; //  orders
       } catch (error) {
-        console.error("Error fetching orders:", error.response?.data || error.message);
-        alert("Failed to fetch orders");
+        console.error("Error fetching orders:", error.response?.data || error.message);// error
+        alert("Failed to fetch orders");// alert
       } finally {
-        this.loading = false;
+        this.loading = false;// loading
       }
     },
   },

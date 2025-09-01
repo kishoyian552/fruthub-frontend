@@ -514,8 +514,8 @@ const processCheckout = async () => {
 }
 
 const goHome = () => {
-  showSuccessDialog.value = false
-  router.push('/')
+  showSuccessDialog.value = false// Close success dialog
+  router.push('/')// Navigate to home page
 }
 </script>
 

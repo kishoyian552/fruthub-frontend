@@ -1,88 +1,62 @@
 <template>
-  <div class="p-4 min-h-screen bg-white">
-    <div>
-      <h1 class="text-xl font-medium text-green-600 mb-4">Payment Successful</h1>
+  <div class="bg-container">
+    <v-container class="fill-height d-flex justify-center align-center">
+      <v-card class="pa-6 text-center success-card" elevation="10">
+        <!-- Checkmark Icon -->
+        <v-avatar size="150" class="mb-4 success-icon">
+          <v-icon size="80" color="white">mdi-check</v-icon>
+        </v-avatar>
 
-      <p class="text-base text-gray-600 mb-2">
-        <strong>Phone:</strong> {{ phone || 'Not provided' }}
-      </p>
-      <p class="text-base text-gray-600 mb-4">
-        <strong>Total Amount Paid:</strong> KES {{ amount || '0' }}
-      </p>
+        <!-- Success Message -->
+        <h2 class="font-weight-bold">Payment Successful </h2>
+        <p class="text-black-darken-1">
+          Your payment has been successfully processed. Now you can go to the homepage & discover new products.
+        </p>
 
-      <h2 class="text-lg font-medium text-gray-600 mb-2">Ordered Items:</h2>
-      <ul>
-        <li v-for="item in items" :key="item.id" class="text-gray-600 mb-2">
-          {{ item.name }} (x{{ item.quantity }}) — KES {{ item.price }}
-        </li>
-        <li v-if="!items.length" class="text-gray-500">No items found</li>
-      </ul>
-    </div>
-
-    <!-- Simple right-aligned green button -->
-    <div class="flex justify-end mt-4">
-      <button
-        @click="goHome"
-        class="bg-green-600 text-white px-4 py-2 rounded-md font-medium hover:bg-green-700"
-      >
-        Go Back to Home
-      </button>
-    </div>
+        <!-- Continue Shopping Button -->
+        <v-btn
+          color="green"
+          class="mt-4 px-6 py-3"
+          rounded="lg"
+          @click="goHome"
+        >
+          Continue shopping
+        </v-btn>
+      </v-card>
+    </v-container>
   </div>
 </template>
 
 <script>
-import { useRoute, useRouter } from "vue-router";// For route and navigation
-import axios from "axios";/// Axios for HTTP requests
-
 export default {
-  setup() {
-    const route = useRoute();// Route for accessing 
-    const router = useRouter();// Router for navigation
-
-    const phone = route.query.phone || "";// Phone number from query
-    const amount = route.query.amount || 0;// Amount from query
-    let items = [];// Items array
-
-    try {
-      items = JSON.parse(route.query.items || "[]");// Parse items from query
-    } catch (e) {
-      console.error("Error parsing items", e);// Log parsing error
-    }// Try to parse items
-
-    // Send each item as a separate order to the database
-    const saveOrders = async () => {
-      try {
-        await axios.get("/sanctum/csrf-cookie");// Get csrf cookie for Laravel Sanctum
-        for (const item of items) {
-          const response = await axios.post(
-            "/api/orders",// Backend endpoint to create order(not active for now) creates an error
-            {
-              product_id: item.id,
-              amount: item.price * item.quantity,
-              mpesa_receipt: route.query.mpesa_receipt || `MPESA_${Date.now()}`,// Use provided receipt or generate a dummy one
-            },// Order data
-            {
-              headers: {
-                Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
-              },// Authorization header with Bearer token
-            }// Axios config
-          );// Create order in backend (not active for now)
-          console.log(`Order ${response.data.order.id} saved successfully`);
-        }// Loop through items
-      } catch (error) {
-        console.error("Error saving orders:", error.response?.data || error.message);
-      }// Log error for debugging
-    };// Save orders function
-
-    // Call saveOrders when component mounts
-    saveOrders();// Save orders on mount
-
-    const goHome = () => {
-      router.push("/");// Navigate to home page
-    };// Go home function
-
-    return { phone, amount, items, goHome };
-  },// End of setup
-};// Export component
+  name: "SuccessPage",
+  methods: {
+    goHome() {
+      this.$router.push("/"); // Redirect to homepage
+    },
+  },
+};
 </script>
+
+<style scoped>
+/* Full-page background */
+.bg-container {
+  background-image: url("https://media.istockphoto.com/id/1945681430/photo/wide-composition-of-bright-fruits-vegetables-and-berries-isolated-on-white.jpg?s=612x612&w=0&k=20&c=XlKxs_8jEDsu2A4tS9tKfAOHbAG7GwcmPGVm_fh4R-w=");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  height: 100vh;   /* Full height */
+  width: 100vw;    /* Full width */
+  display: flex;   /* Make sure child centers well */
+}
+.success-card {
+  max-width: 1000px;
+  border-radius: 60px;
+  background: rgba(255, 255, 255, 0.7); /* Transparent white */
+  backdrop-filter: blur(6px);
+}
+.success-icon {
+  background-color: #4caf50;
+}
+</style>

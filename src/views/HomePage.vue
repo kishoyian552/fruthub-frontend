@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="pa-0" style="background-color: #1a3c34; color: #ffffff;">
+  <v-container fluid class="pa-0" style="background-color: #046924; color: #ffffff;">
     <!-- App Header -->
     
 
@@ -45,7 +45,7 @@
     </v-container>
 
     <!-- Mission Section with Parallax Background and Fade-In Animation -->
-    <v-container fluid class="py-16 parallax-section animate__animated animate__fadeIn animate__delay-2s" style="background-image: url('https://images.pexels.com/photos/143133/pexels-photo-143133.jpeg'); background-attachment: fixed; background-size: cover; color: white;">
+    <v-container fluid class="py-16 parallax-section animate__animated animate__fadeIn animate__delay-2s" style="background-image: url('https://media.istockphoto.com/id/2186457342/photo/fresh-raw-vegetables-and-fruits.jpg?s=612x612&w=0&k=20&c=mNDXtsV-E4RiXpI96LeweQQfMZJzDVvd7oiLN0Nkbp0='); background-attachment: fixed; background-size: cover; color: black;">
       <v-row justify="center">
         <v-col cols="12" md="8" class="text-center">
           <h1 class="text-h3 font-weight-bold mb-6" style="font-size: 36px;">
@@ -59,7 +59,7 @@
     </v-container>
 
     <!-- Services Section with Hover Effects and Staggered Animations -->
-    <v-container fluid class="py-16" style="background-color: #2e7d32;">
+    <v-container fluid class="py-16" style="background-color: #046924;">
       <h2 class="text-h4 font-weight-bold mb-12 text-center animate__animated animate__zoomIn animate__delay-1s">Our Services</h2>
       <v-row justify="center" align="stretch">
         <v-col
@@ -88,7 +88,7 @@
     </v-container>
 
     <!-- Advantages Section with Animated Cards -->
-    <v-container fluid class="py-16" style="background-color: #1a3c34;">
+    <v-container fluid class="py-16" style="background-color: #046924;">
       <h2 class="text-h4 font-weight-bold mb-12 text-center animate__animated animate__zoomIn animate__delay-1s">Why Choose Fruithub</h2>
       <v-row justify="center">
         <v-col
@@ -127,19 +127,19 @@ function goToExplore() {
 // Carousel Items with Fruit Images
 const carouselItems = ref([
   {
-    src: 'https://media.istockphoto.com/id/2207060329/photo/mango-juice-splash-with-fresh-mango-pieces.jpg?s=612x612&w=0&k=20&c=QlzkfIEBqVKiGjljn9v2tr8rc8cd82qDUCs_W_Pl05Q=',
-    title: 'Juicy Mangoes',
+    src: 'https://media.istockphoto.com/id/641708312/photo/fresh-organic-vegetables-and-fruits-on-shelf-in-supermarket-farmers-market-healthy-food.jpg?s=612x612&w=0&k=20&c=W3HM6OABmSVFyMgTR8BV3FayZUsfvHqNyPNKSstucIk=',
+    title: 'Juicy fruits',
     description: 'Savor the sweetness of our farm-fresh mangoes.'
   },
   {
-    src: 'https://media.istockphoto.com/id/944064364/vector/fruit-burst-splash-of-juice-sweet-tropical-fruits-and-mixed-berries-mango-banana-pineapple.jpg?s=612x612&w=0&k=20&c=RDwnFc_wca_q4r0FLSO_wE6aDn4f1F5NTpV6CeHdGV8=',
-    title: 'Crisp Apples',
-    description: 'Hand-picked apples bursting with flavor.'
+    src: 'https://media.istockphoto.com/id/182188154/photo/cornucopia-with-fresh-fruits-and-vegetables-isolated-on-white.jpg?s=612x612&w=0&k=20&c=GZyVF1AvcZChU7LYakjqgghSgZXGtII8hMu4seenRMo=',
+    title: ' fresh fruits',
+    description: 'A basket of fresh fruits for your next meal.'
   },
   {
     src: 'https://images.pexels.com/photos/209339/pexels-photo-209339.jpeg',
-    title: 'Vibrant Berries',
-    description: 'Fresh berries for a healthy, delicious treat.'
+    title: 'Crisp Apples',
+    description: 'Hand-picked apples bursting with flavor.'
   }
 ])
 

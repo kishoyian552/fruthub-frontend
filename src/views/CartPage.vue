@@ -1,52 +1,54 @@
 <template>
-  <v-container>
-    <h1 class="mb-4">Your Cart</h1>
+  <div class="cart-background">
+    <v-container>
+      <h1 class="mb-4">Your Cart</h1>
 
-    <!-- If cart is empty -->
-    <div v-if="cart.items.length === 0">
-      <p>Your cart is empty.</p>
-    </div>
-
-    <!-- If cart has items -->
-    <div v-else>
-      <v-table>
-        <thead>
-          <tr>
-            <th>Product</th>
-            <th>Price</th>
-            <th>Qty</th>
-            <th>Total</th>
-            <th>Remove</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item in cart.items" :key="item.id">
-            <td>{{ item.name }}</td>
-            <td>KES {{ item.price }}</td>
-            <td>{{ item.quantity }}</td>
-            <td>KES {{ item.price * item.quantity }}</td>
-            <td>
-              <v-btn color="red" @click="cart.removeFromCart(item.id)">
-                Remove
-              </v-btn>
-            </td>
-          </tr>
-        </tbody>
-      </v-table>
-
-      <!-- Cart Total -->
-      <div class="text-right mt-4">
-        <h3>Total: KES {{ cartTotal }}</h3>
+      <!-- If cart is empty -->
+      <div v-if="cart.items.length === 0">
+        <p>Your cart is empty.</p>
       </div>
 
-      <!-- Proceed Button -->
-      <div class="text-right mt-4">
-        <v-btn color="green" @click="placeOrder">
-          Proceed to Checkout
-        </v-btn>
+      <!-- If cart has items -->
+      <div v-else>
+        <v-table>
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Price</th>
+              <th>Qty</th>
+              <th>Total</th>
+              <th>Remove</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in cart.items" :key="item.id">
+              <td>{{ item.name }}</td>
+              <td>KES {{ item.price }}</td>
+              <td>{{ item.quantity }}</td>
+              <td>KES {{ item.price * item.quantity }}</td>
+              <td>
+                <v-btn color="red" @click="cart.removeFromCart(item.id)">
+                  Remove
+                </v-btn>
+              </td>
+            </tr>
+          </tbody>
+        </v-table>
+
+        <!-- Cart Total -->
+        <div class="text-right mt-4">
+          <h3>Total: KES {{ cartTotal }}</h3>
+        </div>
+
+        <!-- Proceed Button -->
+        <div class="text-right mt-4">
+          <v-btn color="green" @click="placeOrder">
+            Proceed to Checkout
+          </v-btn>
+        </div>
       </div>
-    </div>
-  </v-container>
+    </v-container>
+  </div>
 </template>
 
 <script>
@@ -96,7 +98,6 @@ export default {
           }
         )//Create order in backend
 
-      
         router.push('/mpesa')// Navigate to M-Pesa payment page
       } catch (error) {
         console.error('Error placing order:', error.response?.data || error.message)// Log error for debugging
@@ -112,3 +113,20 @@ export default {
   }
 }// Export the component
 </script>
+
+<style scoped>
+.cart-background {
+  background-image: url('https://media.istockphoto.com/id/1359111636/photo/background-shopping-bag-with-fruits-and-vegetables-on-white-table.jpg?s=612x612&w=0&k=20&c=lJensPJAIt6uBOdSKm2KmokXIN0NjNBExyk55aIxH6I='); /* 🔹 Replace with your image path */
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh; /* Full screen */
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 40px; /* Push content down a bit */
+}
+.v-table {
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 12px;
+}
+</style>

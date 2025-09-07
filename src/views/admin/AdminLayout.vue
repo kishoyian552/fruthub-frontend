@@ -1,13 +1,13 @@
 <template>
   <v-app>
     <!-- Top Bar -->
-    <v-app-bar app color="green darken-2" dark>
+    <v-app-bar app color="#046924" dark>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title> Fruithub Admin</v-toolbar-title>
     </v-app-bar>
 
     <!-- Sidebar -->
-    <v-navigation-drawer v-model="drawer" app color="grey lighten-4" permanent>
+    <v-navigation-drawer v-model="drawer" app color="#046924" permanent>
       <v-list dense nav>
         <v-list-item
           v-for="item in items"
@@ -72,6 +72,6 @@ export default {
   cursor: pointer;
 }
 .v-list-item:hover {
-  background-color: #e0f2f1;
+  background-color: #38453cf1;
 }
 </style>

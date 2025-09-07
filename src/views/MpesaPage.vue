@@ -1,69 +1,71 @@
 <template>
-  <v-container class="py-10">
-    <v-row justify="center">
-      <v-col cols="12" md="6">
-        <v-card class="pa-6" elevation="6">
-          <h2 class="text-center mb-4">Pay with M-Pesa</h2>
+  <div class="mpesa-background">
+    <v-container class="py-10">
+      <v-row justify="center">
+        <v-col cols="12" md="6">
+          <v-card class="pa-6" elevation="6">
+            <h2 class="text-center mb-4">Pay with M-Pesa</h2>
 
-          <!-- Cart Summary -->
-          <v-list v-if="cart.items && cart.items.length > 0">
-            <v-list-item v-for="item in cart.items" :key="item.id">
-              <v-list-item-title>
-                {{ item.name }} (x{{ item.quantity }})
-              </v-list-item-title>
-              <v-list-item-subtitle>
-                KES {{ item.price * item.quantity }}
-              </v-list-item-subtitle>
-            </v-list-item>
-          </v-list>
+            <!-- Cart Summary -->
+            <v-list v-if="cart.items && cart.items.length > 0">
+              <v-list-item v-for="item in cart.items" :key="item.id">
+                <v-list-item-title>
+                  {{ item.name }} (x{{ item.quantity }})
+                </v-list-item-title>
+                <v-list-item-subtitle>
+                  KES {{ item.price * item.quantity }}
+                </v-list-item-subtitle>
+              </v-list-item>
+            </v-list>
 
-          <v-alert
-            v-else
-            type="warning"
-            class="mt-4"
-            border="start"
-            elevation="2"
-          >
-            Your cart is empty. Add items to proceed.
-          </v-alert>
+            <v-alert
+              v-else
+              type="warning"
+              class="mt-4"
+              border="start"
+              elevation="2"
+            >
+              Your cart is empty. Add items to proceed.
+            </v-alert>
 
-          <h3 class="mt-4">Total: KES {{ totalPrice }}</h3>
+            <h3 class="mt-4">Total: KES {{ totalPrice }}</h3>
 
-          <!-- Phone Input -->
-          <v-text-field
-            v-model="phone"
-            label="Enter your M-Pesa phone number (e.g., 254712345678)"
-            :rules="[phoneRule]" 
-            outlined
-            class="mt-4" 
-          />
+            <!-- Phone Input -->
+            <v-text-field
+              v-model="phone"
+              label="Enter your M-Pesa phone number (e.g., 254712345678)"
+              :rules="[phoneRule]" 
+              outlined
+              class="mt-4" 
+            />
 
-          <!-- Pay Button -->
-          <v-btn
-            color="green"
-            class="mt-4"
-            block
-            :loading="loading"
-            :disabled="totalPrice <= 0 || loading"
-            @click="submitPayment"
-          >
-            Pay Now
-          </v-btn>
+            <!-- Pay Button -->
+            <v-btn
+              color="green"
+              class="mt-4"
+              block
+              :loading="loading"
+              :disabled="totalPrice <= 0 || loading"
+              @click="submitPayment"
+            >
+              Pay Now
+            </v-btn>
 
-          <!-- Feedback Message -->
-          <v-alert
-            v-if="message"
-            :type="messageType"
-            class="mt-4"
-            border="start"
-            elevation="2"
-          >
-            {{ message }}
-          </v-alert>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
+            <!-- Feedback Message -->
+            <v-alert
+              v-if="message"
+              :type="messageType"
+              class="mt-4"
+              border="start"
+              elevation="2"
+            >
+              {{ message }}
+            </v-alert>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
+  </div>
 </template>
 
 <script>
@@ -175,3 +177,18 @@ export default {
 };
 </script>
 
+<style scoped>
+.mpesa-background {
+  background-image: url('https://media.istockphoto.com/id/2178391941/vector/mobile-phone-payment-icon-top-up-payment-symbol-online-banking-sign-smartphone-with-dollar.jpg?s=612x612&w=0&k=20&c=tWdzOh2Hwqja5vb-9LxT31YFqaCayXGp3QVnuFO-Wcc='); /* 🔹 Replace with your image path */
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh; /* Full screen height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.v-card {
+  background-color: rgba(255, 255, 255, 0.7); /* more transparent */
+  border-radius: 12px;
+}
+</style>

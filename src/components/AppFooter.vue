@@ -1,6 +1,6 @@
 <template>
   <v-footer
-    color="primary"
+    color="#046924"
     class="text-white mt-12"
   >
     <v-container>

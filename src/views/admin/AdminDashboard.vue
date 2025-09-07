@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="dashboard-page"> <!-- background wrapper -->
     <h1 class="text-h4 font-weight-bold mb-6">Admin Dashboard</h1>
     <v-row>
       <v-col cols="12" md="4">
@@ -73,3 +73,16 @@ export default {
   },//Fetch counts of products, orders, and users when the component is mounted
 };
 </script>
+
+<style scoped>
+.dashboard-page {
+  min-height: 100vh; /* full screen height */
+  background-image: url("https://media.istockphoto.com/id/2204402496/photo/shopping-basket-full-of-products-with-smartphone-with-white-screen-online-food-ordering.jpg?s=612x612&w=0&k=20&c=tJr6q8kMikymWH-TYk9W_eZiTYpJhJdjm-Z-S15ugZU="); /* your image path */
+  background-size: cover;
+  background-position: center;
+}
+.v-card {
+  background-color: rgba(255, 255, 255, 0.7); /* more transparent */
+  border-radius: 12px;
+}
+</style>

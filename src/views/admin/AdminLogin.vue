@@ -52,19 +52,19 @@ export default {
   mounted() {
     if (localStorage.getItem("isAdmin") === "true") {
       this.$router.push({ name: "AdminDashboard" });
-    }
+    }// admin
   },
   methods: {
     async login() {
       if (!this.email || !this.password) return;
 
-      this.loading = true;
+      this.loading = true;// loading
 
       try {
         const response = await axios.post("http://localhost:8000/api/admin/login", {
-          email: this.email.trim(),
+          email: this.email.trim(),// email
           password: this.password.trim()
-        });
+        });// post
 
         if (response.data.success) {
           localStorage.setItem("isAdmin", "true");
@@ -89,14 +89,15 @@ export default {
 </script>
 
 <style scoped>
-/* Add background image */
+
 .login-bg {
-  background: url("https://media.istockphoto.com/id/2162485893/photo/security-expert-typing-in-password-to-access-secure-database-on-laptop.jpg?s=612x612&w=0&k=20&c=23Hk7ulnVC2Gl4LmbveZE8B_oXXd0PGAed8sXqti16w=")
+  background: url("https://media.istockphoto.com/id/2159482150/photo/businessman-with-technology-digital-interface-with-the-word-admin-administration.jpg?s=612x612&w=0&k=20&c=neuwwgyH-shehZ8nqRDFJEKiUr0ekBv4RA_FT7V2iqY=")
     no-repeat center center fixed;
   background-size: cover;
+  min-height: 100vh;
 }
 
-/* Make card slightly transparent for readability */
+
 .v-card {
   background-color: rgba(255, 255, 255, 0.7);
   border-radius: 12px;

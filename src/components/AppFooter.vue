@@ -183,4 +183,8 @@ a:hover {
 .v-btn--icon:hover {
   transform: scale(1.1);
 }
+.v-footer {
+  margin-top: 0 !important;
+}
+
 </style>

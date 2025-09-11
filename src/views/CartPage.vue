@@ -111,19 +111,19 @@ export default {
       placeOrder
     }// Return reactive properties and methods to the template
   }
-}// Export the component
+}// Exports
 </script>
 
 <style scoped>
 .cart-background {
-  background-image: url('https://media.istockphoto.com/id/1359111636/photo/background-shopping-bag-with-fruits-and-vegetables-on-white-table.jpg?s=612x612&w=0&k=20&c=lJensPJAIt6uBOdSKm2KmokXIN0NjNBExyk55aIxH6I='); /* 🔹 Replace with your image path */
+  background-image: url('https://media.istockphoto.com/id/1270055770/photo/supermarket-shopping-close-up-view-of-shopping-cart-overloaded-with-food-while-in-background.jpg?s=612x612&w=0&k=20&c=Tb0xaNQf4KeOJ81bjC57fibOc_ABEiUPuMVHtHQMnCU='); /* 🔹 Replace with your image path */
   background-size: cover;
   background-position: center;
   min-height: 100vh; /* Full screen */
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding-top: 40px; /* Push content down a bit */
+  padding-top: 40px; 
 }
 .v-table {
   background-color: rgba(255, 255, 255, 0.7);

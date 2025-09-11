@@ -11,6 +11,7 @@ import AdminDashboard from '@/views/admin/AdminDashboard.vue'
 import AdminProducts from '@/views/admin/AdminProducts.vue'
 import AdminUsers from '@/views/admin/AdminUsers.vue'
 import AdminOrders from '@/views/admin/AdminOrders.vue'
+import AboutUs from '@/views/AboutUs.vue'
 
 const routes = [
   {
@@ -53,7 +54,10 @@ const routes = [
     name: 'SuccessPage',
     component: SuccessPage
   },//route for login page
-
+  { path: '/about',
+     name: 'About',
+      component: AboutUs 
+},
 
   {
     path: '/login',

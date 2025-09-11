@@ -172,7 +172,7 @@ const handleRegister = async () => {
 <style scoped>
 .register-page {
   min-height: 100vh; /* full screen */
-  background-image: url("https://media.istockphoto.com/id/1365323283/photo/blackberry-splash.jpg?s=612x612&w=0&k=20&c=WeFNmTidy1FV55huN3yR8lZ4Mq_m2-5H1cIprg7ZjWA="); /* your image */
+  background-image: url("https://media.istockphoto.com/id/186792072/photo/assorted-fruits-in-modern-fruit-market.jpg?s=612x612&w=0&k=20&c=i6FCRnQCKNFNFHA-Gri-OXiysP8SmPzuUi7S5YZ9DCQ="); /* your image */
   background-size: cover;
   background-position: center;
 }
